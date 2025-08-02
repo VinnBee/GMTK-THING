@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class DeckHandler : MonoBehaviour, IPointerClickHandler
 {
+    [SerializeField] string targetObject;
     [SerializeField] uint handSize;
     [SerializeField] uint deckSize;
     // Callbacks
@@ -23,7 +24,7 @@ public class DeckHandler : MonoBehaviour, IPointerClickHandler
     private void FillHand() {
 
         // update t
-        GameObject cardGrp = GameObject.Find("/Canvas/PlayingCardGroup");
+        GameObject cardGrp = GameObject.Find(targetObject);
         Transform cards = this.gameObject.transform.GetChild(7);
 
         for(int i = 0; i < handSize; i++) {

@@ -1606,6 +1606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e30df11432448918a0dab885b86c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetObject: /Canvas/PlayingCardGroup
   handSize: 8
   deckSize: 52
 --- !u!1 &1401784926

@@ -107,6 +107,12 @@ public class HorizontalCardHolder : MonoBehaviour
             }
         }
 
+        if(Input.GetKeyDown("space")) {
+
+
+
+        }
+
         if (selectedCard == null)
             return;
 
