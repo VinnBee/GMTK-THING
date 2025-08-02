@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, IPointerDownHandler
 {
+    private LayerMask cardSlotLayerMask;
     private Canvas canvas;
     private Image imageComponent;
     [SerializeField] private bool instantiateVisual = true;
@@ -53,6 +54,8 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         cardVisual = Instantiate(cardVisualPrefab, visualHandler ? visualHandler.transform : canvas.transform).GetComponent<CardVisual>();
         cardVisual.Initialize(this);
 
+        cardSlotLayerMask = LayerMask.GetMask("CardSlots");
+
     }
 
     void Update()
@@ -95,6 +98,8 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        //Ray cursorRay = Physics.Raycast(eventData.)
+
         EndDragEvent.Invoke(this);
         isDragging = false;
         canvas.GetComponent<GraphicRaycaster>().enabled = true;

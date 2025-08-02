@@ -18,6 +18,7 @@ public class HorizontalCardHolder : MonoBehaviour
     [Header("Spawn Settings")]
     [SerializeField] private int cardsToSpawn = 7;
     public List<Card> cards;
+    public bool cardsUpdated = false;
 
     bool isCrossing = false;
     [SerializeField] private bool tweenCardReturn = true;
@@ -30,6 +31,10 @@ public class HorizontalCardHolder : MonoBehaviour
         }
 
         rect = GetComponent<RectTransform>();
+        EnslaveChildren();
+    }
+
+    public void EnslaveChildren() {
         cards = GetComponentsInChildren<Card>().ToList();
 
         int cardCount = 0;

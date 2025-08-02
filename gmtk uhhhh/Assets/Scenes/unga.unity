@@ -375,6 +375,7 @@ MonoBehaviour:
   slotPrefab: {fileID: 3655645598659960977, guid: e99c361e7acdd41f0b904fef6be48fea, type: 3}
   cardsToSpawn: 4
   cards: []
+  cardsUpdated: 0
   tweenCardReturn: 1
 --- !u!114 &176730505
 MonoBehaviour:
@@ -1324,6 +1325,7 @@ MonoBehaviour:
   slotPrefab: {fileID: 3655645598659960977, guid: e99c361e7acdd41f0b904fef6be48fea, type: 3}
   cardsToSpawn: 8
   cards: []
+  cardsUpdated: 0
   tweenCardReturn: 1
 --- !u!114 &667881469
 MonoBehaviour:
@@ -1427,6 +1429,7 @@ MonoBehaviour:
   slotPrefab: {fileID: 3655645598659960977, guid: e99c361e7acdd41f0b904fef6be48fea, type: 3}
   cardsToSpawn: 2
   cards: []
+  cardsUpdated: 0
   tweenCardReturn: 1
 --- !u!114 &732881785
 MonoBehaviour:
@@ -1692,6 +1695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handSize: 8
   deckSize: 52
+  cardGrp: {fileID: 667881465}
 --- !u!1 &1362745689
 GameObject:
   m_ObjectHideFlags: 0
@@ -2123,6 +2127,7 @@ MonoBehaviour:
   slotPrefab: {fileID: 3655645598659960977, guid: e99c361e7acdd41f0b904fef6be48fea, type: 3}
   cardsToSpawn: 4
   cards: []
+  cardsUpdated: 0
   tweenCardReturn: 1
 --- !u!114 &1954046229
 MonoBehaviour:
