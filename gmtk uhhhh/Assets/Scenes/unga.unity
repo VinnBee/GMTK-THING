@@ -1692,6 +1692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handSize: 8
   deckSize: 52
+<<<<<<< HEAD
 --- !u!1 &1362745689
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,6 +1777,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+=======
+>>>>>>> ee595138345b861f20c45370d8f773f68fdf63c0
 --- !u!1 &1401784926
 GameObject:
   m_ObjectHideFlags: 0
