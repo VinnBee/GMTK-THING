@@ -45,7 +45,7 @@ public class HorizontalCardHolder : MonoBehaviour
             card.PointerExitEvent.AddListener(CardPointerExit);
             card.BeginDragEvent.AddListener(BeginDrag);
             card.EndDragEvent.AddListener(EndDrag);
-            card.name = cardCount.ToString();
+ 
             cardCount++;
         }
 

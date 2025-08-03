@@ -28,6 +28,10 @@ public class CardVisual : MonoBehaviour
     [SerializeField] private Transform tiltParent;
     [SerializeField] private Image cardImage;
 
+    [Header("Sprite Mapping")]
+    [Tooltip("0-based: 0→H2, 1→H3, …, 12→HA, 13→C2, …, 51→SA")]
+    public Sprite[] cardSprites;  // 52 sprites in H2→HA, C2→CA, D2→DA, S2→SA order
+
     [Header("Follow Parameters")]
     [SerializeField] private float followSpeed = 30;
 
@@ -48,7 +52,7 @@ public class CardVisual : MonoBehaviour
     [Header("Select Parameters")]
     [SerializeField] private float selectPunchAmount = 20;
 
-    [Header("Hober Parameters")]
+    [Header("Hover Parameters")]
     [SerializeField] private float hoverPunchAngle = 5;
     [SerializeField] private float hoverTransition = .15f;
 
@@ -72,13 +76,13 @@ public class CardVisual : MonoBehaviour
 
     public void Initialize(Card target, int index = 0)
     {
-        //Declarations
+        // Declarations
         parentCard = target;
         cardTransform = target.transform;
         canvas = GetComponent<Canvas>();
         shadowCanvas = visualShadow.GetComponent<Canvas>();
 
-        //Event Listening
+        // Event Listening
         parentCard.PointerEnterEvent.AddListener(PointerEnter);
         parentCard.PointerExitEvent.AddListener(PointerExit);
         parentCard.BeginDragEvent.AddListener(BeginDrag);
@@ -87,7 +91,10 @@ public class CardVisual : MonoBehaviour
         parentCard.PointerUpEvent.AddListener(PointerUp);
         parentCard.SelectEvent.AddListener(Select);
 
-        //Initialization
+        // Assign sprite according to mapping
+        SetCardSprite();
+
+        // Initialization
         initalize = true;
     }
 
@@ -105,6 +112,23 @@ public class CardVisual : MonoBehaviour
         FollowRotation();
         CardTilt();
 
+    }
+
+    private void SetCardSprite()
+    {
+        // Minimal injection: parse 0-based int name and assign from cardSprites array
+        if (parentCard == null || cardSprites == null || cardSprites.Length != 52)
+        {
+            Debug.LogWarning("CardVisual: cardSprites must have exactly 52 elements.");
+            return;
+        }
+        string raw = parentCard.gameObject.name;
+        if (!int.TryParse(raw.Split(' ')[0], out int id) || id < 0 || id >= 52)
+        {
+            Debug.LogError($"CardVisual: Invalid card id '{raw}'.");
+            return;
+        }
+        cardImage.sprite = cardSprites[id];
     }
 
     private void HandPositioning()
@@ -156,7 +180,6 @@ public class CardVisual : MonoBehaviour
 
         if(scaleAnimations)
             transform.DOScale(scaleOnHover, scaleTransition).SetEase(scaleEase);
-
     }
 
     public void Swap(float dir = 1)
@@ -215,5 +238,4 @@ public class CardVisual : MonoBehaviour
         visualShadow.localPosition += (-Vector3.up * shadowOffset);
         shadowCanvas.overrideSorting = false;
     }
-
 }
