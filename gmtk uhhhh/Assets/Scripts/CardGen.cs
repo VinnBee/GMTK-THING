@@ -16,7 +16,7 @@ public class CardGen : MonoBehaviour
         for(uint i = 0; i < deckSize; i++) {
 
             GameObject card = Instantiate(cardPrefab, this.transform);
-            card.name = (i + 1).ToString();
+            card.name = i.ToString();
             card.SetActive(false);
 
         }
