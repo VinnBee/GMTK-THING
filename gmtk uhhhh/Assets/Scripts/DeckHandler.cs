@@ -6,8 +6,9 @@ using UnityEngine.EventSystems;
 
 public class DeckHandler : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] uint handSize;
-    [SerializeField] uint deckSize;
+    [SerializeField] public uint handSize;
+    [SerializeField] public uint deckSize;
+    [SerializeField] public Transform cardGrp;
     // Callbacks
 
     // Start is called before the first frame update
@@ -22,9 +23,8 @@ public class DeckHandler : MonoBehaviour, IPointerClickHandler
     // Fill deck (PlayingCardGroup) with cards within deck
     private void FillHand() {
 
-        // update t
-        GameObject cardGrp = GameObject.Find("/Canvas/PlayingCardGroup");
         Transform cards = this.gameObject.transform.GetChild(7);
+        HorizontalCardHolder cardHolder = cardGrp.GetComponent<HorizontalCardHolder>();
 
         for(int i = 0; i < handSize; i++) {
 
@@ -45,6 +45,8 @@ public class DeckHandler : MonoBehaviour, IPointerClickHandler
             }
 
         }
+
+        cardHolder.EnslaveChildren();
 
     }
 }
