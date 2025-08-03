@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class DeckHandler : MonoBehaviour, IPointerClickHandler
+public class DeckHandler : MonoBehaviour
 {
     [SerializeField] public uint handSize;
     [SerializeField] public uint deckSize;
@@ -14,12 +13,23 @@ public class DeckHandler : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         deckTransform = this.gameObject.transform.GetChild(7); // The deck container
+        StartCoroutine(DelayedFill());
     }
 
-    void Update() { }
-
-    public void OnPointerClick(PointerEventData unused)
+   void Update()
+{
+    if (Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.Space))
     {
+        FillHand();
+
+        // Start/reset the 1-second timer to clear selected cards
+        CardSelectionManager.Instance.ResetAfterDelay(1f);
+    }
+}
+
+    private IEnumerator DelayedFill()
+    {
+        yield return new WaitForSeconds(0.1f); // short delay for setup
         FillHand();
     }
 
@@ -36,11 +46,10 @@ public class DeckHandler : MonoBehaviour, IPointerClickHandler
             }
 
             Transform cardSlot = cardGrp.transform.GetChild(i);
-            //print(cardSlot.childCount);
-            if(cardSlot.childCount == 0) {
-
-                float rcard = Random.Range(0, deckSize - 1);
-                Transform card = deckTransform.GetChild((int)rcard);
+            if (cardSlot.childCount == 0)
+            {
+                int rcard = Random.Range(0, (int)deckSize);
+                Transform card = deckTransform.GetChild(rcard);
 
                 card.gameObject.SetActive(true);
                 card.SetParent(cardSlot);
@@ -48,13 +57,6 @@ public class DeckHandler : MonoBehaviour, IPointerClickHandler
 
                 deckSize -= 1;
             }
-            // Instead of destroying, return the old card to the deck and deactivate it
-            /*if (cardSlot.childCount > 0) {
-                Transform oldCard = cardSlot.GetChild(0);
-                oldCard.SetParent(deckTransform);
-                oldCard.position = new Vector3(213, -150, 0);
-                oldCard.gameObject.SetActive(false);
-            }*/
         }
 
         cardHolder.EnslaveChildren();

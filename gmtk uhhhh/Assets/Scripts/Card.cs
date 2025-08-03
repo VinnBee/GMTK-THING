@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -7,7 +8,6 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, IPointerDownHandler
 {
-    private LayerMask cardSlotLayerMask;
     private Canvas canvas;
     private Image imageComponent;
     [SerializeField] private bool instantiateVisual = true;
@@ -53,8 +53,6 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         cardVisual = Instantiate(cardVisualPrefab, visualHandler ? visualHandler.transform : canvas.transform).GetComponent<CardVisual>();
         cardVisual.Initialize(this);
 
-        cardSlotLayerMask = LayerMask.GetMask("CardSlots");
-
     }
 
     void Update()
@@ -64,11 +62,9 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         if (isDragging)
         {
             Vector2 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - offset;
-            targetPosition.y = transform.position.y; // Lock vertical movement
-Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
-Vector2 velocity = direction * Mathf.Min(moveSpeedLimit, Vector2.Distance(transform.position, targetPosition) / Time.deltaTime);
-transform.Translate(velocity * Time.deltaTime);
-
+            Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
+            Vector2 velocity = direction * Mathf.Min(moveSpeedLimit, Vector2.Distance(transform.position, targetPosition) / Time.deltaTime);
+            transform.Translate(velocity * Time.deltaTime);
         }
     }
 
@@ -83,14 +79,14 @@ transform.Translate(velocity * Time.deltaTime);
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        /*BeginDragEvent.Invoke(this);
+        BeginDragEvent.Invoke(this);
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         offset = mousePosition - (Vector2)transform.position;
         isDragging = true;
         canvas.GetComponent<GraphicRaycaster>().enabled = false;
         imageComponent.raycastTarget = false;
 
-        wasDragged = true;*/
+        wasDragged = true;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -99,10 +95,7 @@ transform.Translate(velocity * Time.deltaTime);
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //Ray cursorRay = Physics.Raycast(eventData.)
-	
-        /*EndDragEvent.Invoke(this);
-	snapping-cardslot
+        EndDragEvent.Invoke(this);
         isDragging = false;
         canvas.GetComponent<GraphicRaycaster>().enabled = true;
         imageComponent.raycastTarget = true;
@@ -113,7 +106,7 @@ transform.Translate(velocity * Time.deltaTime);
         {
             yield return new WaitForEndOfFrame();
             wasDragged = false;
-        }*/
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -153,13 +146,27 @@ transform.Translate(velocity * Time.deltaTime);
         if (wasDragged)
             return;
 
-        selected = !selected;
-        SelectEvent.Invoke(this, selected);
+        if (!selected)
+{
+    if (CardSelectionManager.Instance.TrySelect(this))
+    {
+        selected = true;
+        SelectEvent.Invoke(this, true);
+        transform.localPosition += (cardVisual.transform.up * selectionOffset);
+    }
+    else
+    {
+        // Optionally play a sound or show feedback if max is reached
+    }
+}
+else
+{
+    CardSelectionManager.Instance.Deselect(this);
+    selected = false;
+    SelectEvent.Invoke(this, false);
+    transform.localPosition = Vector3.zero;
+}
 
-        if (selected)
-            transform.localPosition += (cardVisual.transform.up * selectionOffset);
-        else
-            transform.localPosition = Vector3.zero;
     }
 
     public void Deselect()
