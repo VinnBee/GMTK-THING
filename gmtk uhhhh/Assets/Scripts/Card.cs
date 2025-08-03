@@ -82,14 +82,14 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        BeginDragEvent.Invoke(this);
+        /*BeginDragEvent.Invoke(this);
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         offset = mousePosition - (Vector2)transform.position;
         isDragging = true;
         canvas.GetComponent<GraphicRaycaster>().enabled = false;
         imageComponent.raycastTarget = false;
 
-        wasDragged = true;
+        wasDragged = true;*/
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -99,8 +99,9 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     public void OnEndDrag(PointerEventData eventData)
     {
         //Ray cursorRay = Physics.Raycast(eventData.)
-
-        EndDragEvent.Invoke(this);
+	
+        /*EndDragEvent.Invoke(this);
+	snapping-cardslot
         isDragging = false;
         canvas.GetComponent<GraphicRaycaster>().enabled = true;
         imageComponent.raycastTarget = true;
@@ -111,7 +112,7 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         {
             yield return new WaitForEndOfFrame();
             wasDragged = false;
-        }
+        }*/
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -37,16 +37,12 @@ public class HorizontalCardHolder : MonoBehaviour
     public void EnslaveChildren() {
         cards = GetComponentsInChildren<Card>().ToList();
 
-        int cardCount = 0;
-
         foreach (Card card in cards)
         {
             card.PointerEnterEvent.AddListener(CardPointerEnter);
             card.PointerExitEvent.AddListener(CardPointerExit);
             card.BeginDragEvent.AddListener(BeginDrag);
             card.EndDragEvent.AddListener(EndDrag);
- 
-            cardCount++;
         }
 
         StartCoroutine(Frame());
