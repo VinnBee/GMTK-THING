@@ -28,6 +28,10 @@ public class DeckHandler : MonoBehaviour, IPointerClickHandler
 
         for(int i = 0; i < handSize; i++) {
 
+            if(deckSize == 0) {
+                this.gameObject.SetActive(false);
+            }
+
             float rcard = Random.Range(0, deckSize - 1);
             Transform card = cards.GetChild((int)rcard);
             Transform cardSlot = cardGrp.transform.GetChild(i);
@@ -39,10 +43,6 @@ public class DeckHandler : MonoBehaviour, IPointerClickHandler
             card.localPosition = Vector3.zero;
 
             deckSize -= 1;
-
-            if(deckSize == 0) {
-                this.gameObject.SetActive(false);
-            }
 
         }
 
