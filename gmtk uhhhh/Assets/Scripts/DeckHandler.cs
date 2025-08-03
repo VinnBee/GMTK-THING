@@ -14,6 +14,7 @@ public class DeckHandler : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         deckTransform = this.gameObject.transform.GetChild(7); // The deck container
+        FillHand();
     }
 
     void Update() { }
@@ -35,19 +36,17 @@ public class DeckHandler : MonoBehaviour, IPointerClickHandler
                 break;
             }
 
-            float rcard = Random.Range(0, deckSize);
+            float rcard = Random.Range(0, deckSize - 1);
             Transform card = deckTransform.GetChild((int)rcard);
             Transform cardSlot = cardGrp.transform.GetChild(i);
 
             // Instead of destroying, return the old card to the deck and deactivate it
-            if (cardSlot.childCount > 0)
-{
-    Transform oldCard = cardSlot.GetChild(0);
-    oldCard.SetParent(deckTransform);
+            if (cardSlot.childCount > 0) {
+                Transform oldCard = cardSlot.GetChild(0);
+                oldCard.SetParent(deckTransform);
 oldCard.position = new Vector3(213, -150, 0);
 oldCard.gameObject.SetActive(false);
-
-}
+            }
 
             // Move new card into the slot
             card.gameObject.SetActive(true);

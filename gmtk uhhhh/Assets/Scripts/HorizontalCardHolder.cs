@@ -16,7 +16,7 @@ public class HorizontalCardHolder : MonoBehaviour
     private RectTransform rect;
 
     [Header("Spawn Settings")]
-    [SerializeField] private int cardsToSpawn = 7;
+    [SerializeField] public int cardsToSpawn;
     public List<Card> cards;
     public bool cardsUpdated = false;
 
