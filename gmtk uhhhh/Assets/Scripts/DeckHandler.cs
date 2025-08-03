@@ -44,8 +44,8 @@ public class DeckHandler : MonoBehaviour, IPointerClickHandler
             if (cardSlot.childCount > 0) {
                 Transform oldCard = cardSlot.GetChild(0);
                 oldCard.SetParent(deckTransform);
-oldCard.position = new Vector3(213, -150, 0);
-oldCard.gameObject.SetActive(false);
+                oldCard.position = new Vector3(213, -150, 0);
+                oldCard.gameObject.SetActive(false);
             }
 
             // Move new card into the slot
