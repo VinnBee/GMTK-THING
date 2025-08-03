@@ -35,8 +35,12 @@ public class DeckHandler : MonoBehaviour, IPointerClickHandler
                 break;
             }
 
-            float rcard = Random.Range(0, deckSize);
-            Transform card = deckTransform.GetChild((int)rcard);
+            if(deckSize == 0) {
+                this.gameObject.SetActive(false);
+            }
+
+            float rcard = Random.Range(0, deckSize - 1);
+            Transform card = cards.GetChild((int)rcard);
             Transform cardSlot = cardGrp.transform.GetChild(i);
 
             // Instead of destroying, return the old card to the deck and deactivate it
