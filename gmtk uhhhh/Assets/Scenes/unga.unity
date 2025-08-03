@@ -2160,7 +2160,10 @@ GameObject:
   - component: {fileID: 1954046229}
   - component: {fileID: 1954046228}
   - component: {fileID: 1954046227}
+<<<<<<< HEAD
   - component: {fileID: 1954046231}
+=======
+>>>>>>> 34ddeeb349c900cebcfa981ebbf062d613715896
   m_Layer: 3
   m_Name: PlayerFieldGroup
   m_TagString: Untagged

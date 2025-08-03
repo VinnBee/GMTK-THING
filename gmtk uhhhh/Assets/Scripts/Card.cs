@@ -83,14 +83,14 @@ transform.Translate(velocity * Time.deltaTime);
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        BeginDragEvent.Invoke(this);
+        /*BeginDragEvent.Invoke(this);
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         offset = mousePosition - (Vector2)transform.position;
         isDragging = true;
         canvas.GetComponent<GraphicRaycaster>().enabled = false;
         imageComponent.raycastTarget = false;
 
-        wasDragged = true;
+        wasDragged = true;*/
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -100,8 +100,9 @@ transform.Translate(velocity * Time.deltaTime);
     public void OnEndDrag(PointerEventData eventData)
     {
         //Ray cursorRay = Physics.Raycast(eventData.)
-
-        EndDragEvent.Invoke(this);
+	
+        /*EndDragEvent.Invoke(this);
+	snapping-cardslot
         isDragging = false;
         canvas.GetComponent<GraphicRaycaster>().enabled = true;
         imageComponent.raycastTarget = true;
@@ -112,7 +113,7 @@ transform.Translate(velocity * Time.deltaTime);
         {
             yield return new WaitForEndOfFrame();
             wasDragged = false;
-        }
+        }*/
     }
 
     public void OnPointerEnter(PointerEventData eventData)
