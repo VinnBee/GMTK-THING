@@ -90,7 +90,7 @@ public class HorizontalCardHolder : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Delete))
+        /*if (Input.GetKeyDown(KeyCode.Delete))
         {
             if (hoveredCard != null)
             {
@@ -98,7 +98,7 @@ public class HorizontalCardHolder : MonoBehaviour
                 cards.Remove(hoveredCard);
 
             }
-        }
+        }*/
 
         if (Input.GetMouseButtonDown(1))
         {
