@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SubmitHandler : MonoBehaviour
 {
-    [SerializeField] public Transform sourceHand;
+    [SerializeField] public Transform sourceHand; // The holder to pull selected cards from
     private HorizontalCardHolder me;
+    public bool lockSubmission; // Locks the submission handler when true. Make sure the hand is clear before resetting false
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +18,7 @@ public class SubmitHandler : MonoBehaviour
     void Update()
     {
 
-        if(Input.GetKey(KeyCode.Space)) {
+        if(Input.GetKey(KeyCode.Space) && !lockSubmission) {
 
             Card[] cards = sourceHand.GetComponentsInChildren<Card>();
             Transform[] cardSlots = GetComponentsInChildren<Transform>();
@@ -35,6 +36,19 @@ public class SubmitHandler : MonoBehaviour
             }
 
             me.EnslaveChildren();
+            lockSubmission = true;
+
+        }
+
+        if(Input.GetKey(KeyCode.C)) { // Debug callback clears the player's hand when C is pressed and resets the lock.
+
+            Card[] cards = GetComponentsInChildren<Card>();
+            foreach(Card card in cards) {
+                Object.Destroy(card.gameObject);
+            }
+
+            me.EnslaveChildren();
+            lockSubmission = false;
 
         }
     }
